@@ -20,10 +20,17 @@ budget-buddy/
 ├── style.css             # Lavender-themed styling
 ├── README.md             # Project details and instructions
 
-💜 Made with love by
+---
 
+💜 Made with love by Rhahavy
 
-Rhahavy Balakumar
-
+---
 
 Helping you budget softly, without the stress 🌷
+
+---
+🧠 Tech Used
+
+HTML5
+CSS3 (soft UI, lavender palette)
+Vanilla JavaScript (lightweight + dynamic)
