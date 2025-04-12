@@ -1,0 +1,135 @@
+/* === Base Styles === */
+body {
+  background-color: #FCEFF9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: #4a4a4a;
+}
+
+/* === Page Container === */
+.dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* === Headings === */
+h1 {
+  font-size: 2rem;
+  color: #732d91;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #8e44ad;
+  margin-bottom: 10px;
+}
+
+/* === Budget Form === */
+#budgetForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#budgetForm input,
+.expense-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 200px;
+}
+
+#budgetForm button,
+.expense-form button {
+  padding: 10px 20px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#budgetForm button:hover,
+.expense-form button:hover {
+  background-color: #732d91;
+}
+
+/* === Budget Cards === */
+.budget-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 30px;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.budget-card p {
+  margin: 5px 0;
+}
+
+/* === Progress Bar === */
+.progress {
+  height: 16px;
+  background-color: #f3e6f7;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #b07acc;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* === Expense List === */
+.budget-card ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.budget-card li {
+  padding: 8px 12px;
+  background-color: #f9f1fc;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #4a2e57;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  #budgetForm {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #budgetForm input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .expense-form input {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+  }
+
+  .budget-card {
+    padding: 20px;
+  }
+}
