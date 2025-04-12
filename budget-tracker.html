@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lavender Budget Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <h1>💸 Lavender Budget Tracker</h1>
+
+    <div class="budget-section">
+      <form id="budgetForm">
+        <input type="text" id="category" placeholder="Category (e.g. Groceries)" required />
+        <input type="number" id="limit" placeholder="Limit ($)" required />
+        <button type="submit">Add Budget</button>
+      </form>
+    </div>
+
+    <div id="budgetList" class="budget-list"></div>
+  </div>
+
+  <script>
+    const budgetForm = document.getElementById("budgetForm");
+    const budgetList = document.getElementById("budgetList");
+
+    const budgets = {};
+
+    budgetForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const category = document.getElementById("category").value;
+      const limit = parseFloat(document.getElementById("limit").value);
+
+      if (!budgets[category]) {
+        budgets[category] = {
+          limit: limit,
+          spent: 0,
+          expenses: []
+        };
+        renderBudgets();
+      }
+      budgetForm.reset();
+    });
+
+    function renderBudgets() {
+      budgetList.innerHTML = "";
+      for (let cat in budgets) {
+        const data = budgets[cat];
+        const percent = Math.min((data.spent / data.limit) * 100, 100);
+
+        const card = document.createElement("div");
+        card.className = "budget-card";
+
+        card.innerHTML = `
+          <h2>${cat}</h2>
+          <p>Limit: $${data.limit.toFixed(2)}</p>
+          <p>Spent: $${data.spent.toFixed(2)}</p>
+          <div class="progress">
+            <div class="progress-bar" style="width: ${percent}%"></div>
+          </div>
+          <form class="expense-form">
+            <input type="text" placeholder="Description" required />
+            <input type="number" placeholder="Amount" required />
+            <button type="submit">Add Expense</button>
+          </form>
+          <ul>
+            ${data.expenses.map(e => `<li>${e.desc} - $${e.amount.toFixed(2)}</li>`).join("")}
+          </ul>
+        `;
+
+        const expenseForm = card.querySelector(".expense-form");
+        expenseForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const desc = expenseForm.querySelector("input[type=text]").value;
+          const amount = parseFloat(expenseForm.querySelector("input[type=number]").value);
+          budgets[cat].spent += amount;
+          budgets[cat].expenses.push({ desc, amount });
+          renderBudgets();
+        });
+
+        budgetList.appendChild(card);
+      }
+    }
+  </script>
+</body>
+</html>
