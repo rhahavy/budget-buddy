@@ -84,6 +84,8 @@
         const card = document.createElement("div");
         card.className = "budget-card";
 
+        const expenseItems = data.expenses.map((e, index) => `<li>${e.desc} - $${e.amount.toFixed(2)} <button data-cat="${cat}" data-index="${index}" class="delete-expense">❌</button></li>`).join("");
+
         card.innerHTML = `
           <h2>${cat}</h2>
           <p>Limit: $${data.limit.toFixed(2)}</p>
@@ -96,9 +98,8 @@
             <input type="number" placeholder="Amount" required />
             <button type="submit">Add Expense</button>
           </form>
-          <ul>
-            ${data.expenses.map(e => `<li>${e.desc} - $${e.amount.toFixed(2)}</li>`).join("")}
-          </ul>
+          <ul>${expenseItems}</ul>
+          <button class="delete-budget" data-cat="${cat}">🗑️ Delete Budget</button>
         `;
 
         const expenseForm = card.querySelector(".expense-form");
@@ -108,6 +109,23 @@
           const amount = parseFloat(expenseForm.querySelector("input[type=number]").value);
           budgets[cat].spent += amount;
           budgets[cat].expenses.push({ desc, amount });
+          saveBudgets();
+          renderBudgets();
+        });
+
+        card.querySelectorAll(".delete-expense").forEach(button => {
+          button.addEventListener("click", () => {
+            const category = button.getAttribute("data-cat");
+            const index = parseInt(button.getAttribute("data-index"));
+            const removed = budgets[category].expenses.splice(index, 1)[0];
+            budgets[category].spent -= removed.amount;
+            saveBudgets();
+            renderBudgets();
+          });
+        });
+
+        card.querySelector(".delete-budget").addEventListener("click", () => {
+          delete budgets[cat];
           saveBudgets();
           renderBudgets();
         });
