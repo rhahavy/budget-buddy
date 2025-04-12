@@ -133,3 +133,32 @@ h2 {
     padding: 20px;
   }
 }
+
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 20px 10px;
+  }
+
+  #budgetForm,
+  .expense-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #budgetForm input,
+  .expense-form input,
+  #budgetForm button,
+  .expense-form button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .budget-card {
+    padding: 20px;
+    margin: 10px auto;
+    width: 100%;
+  }
+}
+
