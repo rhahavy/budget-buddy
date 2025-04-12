@@ -19,12 +19,12 @@
   <div class="dashboard">
     <h1>💸 Budget Buddy</h1>
     <p class="tagline">Organize your spending by category with glitter, dark mode, and charm ✨</p>
-   
+    <button id="toggleDarkMode">Toggle Dark Mode</button>
 
     <div class="budget-section">
       <form id="budgetForm">
         <input type="text" id="category" placeholder="Category (e.g. Groceries)" required />
-        <input type="number" id="limit" placeholder="Limit ($)" required />
+        <input type="number" id="limit" placeholder="Limit ($)" step="0.01" required />
         <button type="submit">Add Budget</button>
       </form>
     </div>
@@ -95,7 +95,7 @@
           </div>
           <form class="expense-form">
             <input type="text" placeholder="Description" required />
-            <input type="number" placeholder="Amount" required />
+            <input type="number" placeholder="Amount" step="0.01" required />
             <button type="submit">Add Expense</button>
           </form>
           <ul>${expenseItems}</ul>
@@ -141,14 +141,6 @@
     }
 
     renderBudgets();
-  </script
-
-<footer style="text-align: center; margin: 40px auto;">
-  <button id="toggleDarkMode" style="padding: 10px 20px; border-radius: 8px; background-color: var(--primary); color: white; border: none; cursor: pointer;">
-    Toggle Dark Mode
-  </button>
-</footer>
-
-    
+  </script>
 </body>
 </html>
