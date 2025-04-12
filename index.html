@@ -19,7 +19,7 @@
   <div class="dashboard">
     <h1>💸 Budget Buddy</h1>
     <p class="tagline">Organize your spending by category with glitter, dark mode, and charm ✨</p>
-    <button id="toggleDarkMode">Toggle Dark Mode</button>
+   
 
     <div class="budget-section">
       <form id="budgetForm">
@@ -139,6 +139,14 @@
       budgetList.appendChild(totalCard);
       }
     }
+
+    <div id="budgetList" class="budget-list"></div>
+
+<!-- Move dark mode toggle here -->
+<div style="text-align: center; margin-top: 40px;">
+  <button id="toggleDarkMode">Toggle Dark Mode</button>
+</div>
+
 
     renderBudgets();
   </script>
