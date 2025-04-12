@@ -22,5 +22,8 @@ budget-buddy/
 
 💜 Made with love by
 
+
 Rhahavy Balakumar
+
+
 Helping you budget softly, without the stress 🌷
