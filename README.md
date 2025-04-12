@@ -19,6 +19,7 @@ budget-buddy/
 ├── budget-tracker.html   # Main app file
 ├── style.css             # Lavender-themed styling
 ├── README.md             # Project details and instructions
+├── script.js             # extracted JS logic
 
 ---
 
