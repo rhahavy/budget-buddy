@@ -45,6 +45,30 @@ h2 {
   width: 200px;
 }
 
+/* General layout improvements */
+.budget-list {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Responsive tweak for larger screens */
+@media (min-width: 768px) {
+  .budget-card {
+    padding: 30px;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    width: 100%;
+    max-width: 800px;
+  }
+}
+
+
 #budgetForm button,
 .expense-form button {
   padding: 10px 20px;
