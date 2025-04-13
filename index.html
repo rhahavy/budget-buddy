@@ -114,9 +114,12 @@
 
     <div id="budgetList" class="budget-list"></div>
 
-    <!-- Dark Mode Toggle at the bottom -->
+    <!-- Dark Mode & Reset Buttons -->
     <div style="text-align: center; margin-top: 40px;">
       <button id="toggleDarkMode">Toggle Dark Mode</button>
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+      <button id="resetBudgets" style="background-color: #f55; color: white;">Reset All Budgets</button>
     </div>
   </div>
 
@@ -124,6 +127,14 @@
     const budgetForm = document.getElementById("budgetForm");
     const budgetList = document.getElementById("budgetList");
     const toggleDarkMode = document.getElementById("toggleDarkMode");
+
+    // ---- MONTHLY RESET CHECK ----
+    const currentMonth = new Date().getMonth();
+    const savedMonth = parseInt(localStorage.getItem("budgetMonth"));
+    if (savedMonth !== currentMonth) {
+      localStorage.setItem("budgets", JSON.stringify({}));
+      localStorage.setItem("budgetMonth", currentMonth);
+    }
 
     let budgets = JSON.parse(localStorage.getItem("budgets")) || {};
 
@@ -174,8 +185,8 @@
         const card = document.createElement("div");
         card.className = "budget-card";
 
-        const expenseItems = data.expenses.map((e, index) => 
-          `<li>${e.desc} - $${e.amount.toFixed(2)} 
+        const expenseItems = data.expenses.map((e, index) =>
+          `<li>${e.desc} - $${e.amount.toFixed(2)}
            <button data-cat="${cat}" data-index="${index}" class="delete-expense">❌</button></li>`
         ).join("");
 
@@ -231,6 +242,16 @@
       totalCard.innerHTML = `<h2>Total Spent</h2><p>$${totalSpent.toFixed(2)}</p>`;
       budgetList.appendChild(totalCard);
     }
+
+    // ---- RESET ALL BUDGETS ----
+    document.getElementById("resetBudgets").addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset all budgets?")) {
+        budgets = {};
+        localStorage.setItem("budgets", JSON.stringify({}));
+        localStorage.setItem("budgetMonth", new Date().getMonth());
+        renderBudgets();
+      }
+    });
 
     renderBudgets();
   </script>
