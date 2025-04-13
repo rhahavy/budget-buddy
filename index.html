@@ -12,14 +12,97 @@
       --background: #fceff9;
       --card: #ffffff;
     }
-    /* [styles unchanged for brevity, assuming same as before] */
+
+    body {
+      background-color: var(--background);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .tagline {
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .budget-section {
+      margin-bottom: 30px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .budget-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .budget-card {
+      background-color: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .progress {
+      background: #eee;
+      height: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 5px;
+    }
+
+    .dark-mode {
+      background-color: #222;
+      color: #eee;
+    }
+
+    .dark-mode .budget-card {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .glitter {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade 0.6s forwards;
+    }
+
+    @keyframes fade {
+      to {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="dashboard">
     <h1>💸 Budget Buddy</h1>
     <p class="tagline">Organize your spending by category with glitter, dark mode, and charm ✨</p>
-   
 
     <div class="budget-section">
       <form id="budgetForm">
@@ -30,6 +113,11 @@
     </div>
 
     <div id="budgetList" class="budget-list"></div>
+
+    <!-- Dark Mode Toggle at the bottom -->
+    <div style="text-align: center; margin-top: 40px;">
+      <button id="toggleDarkMode">Toggle Dark Mode</button>
+    </div>
   </div>
 
   <script>
@@ -54,10 +142,10 @@
 
     budgetForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      const category = document.getElementById("category").value;
+      const category = document.getElementById("category").value.trim();
       const limit = parseFloat(document.getElementById("limit").value);
 
-      if (!budgets[category]) {
+      if (category && !budgets[category]) {
         budgets[category] = {
           limit: limit,
           spent: 0,
@@ -66,6 +154,7 @@
         saveBudgets();
         renderBudgets();
       }
+
       budgetForm.reset();
     });
 
@@ -76,6 +165,7 @@
     function renderBudgets() {
       budgetList.innerHTML = "";
       let totalSpent = 0;
+
       for (let cat in budgets) {
         const data = budgets[cat];
         const percent = Math.min((data.spent / data.limit) * 100, 100);
@@ -84,7 +174,10 @@
         const card = document.createElement("div");
         card.className = "budget-card";
 
-        const expenseItems = data.expenses.map((e, index) => `<li>${e.desc} - $${e.amount.toFixed(2)} <button data-cat="${cat}" data-index="${index}" class="delete-expense">❌</button></li>`).join("");
+        const expenseItems = data.expenses.map((e, index) => 
+          `<li>${e.desc} - $${e.amount.toFixed(2)} 
+           <button data-cat="${cat}" data-index="${index}" class="delete-expense">❌</button></li>`
+        ).join("");
 
         card.innerHTML = `
           <h2>${cat}</h2>
@@ -137,19 +230,9 @@
       totalCard.className = "budget-card";
       totalCard.innerHTML = `<h2>Total Spent</h2><p>$${totalSpent.toFixed(2)}</p>`;
       budgetList.appendChild(totalCard);
-      }
     }
-
-    <div id="budgetList" class="budget-list"></div>
-
-<!-- Move dark mode toggle here -->
-<div style="text-align: center; margin-top: 40px;">
-  <button id="toggleDarkMode">Toggle Dark Mode</button>
-</div>
-
 
     renderBudgets();
   </script>
 </body>
 </html>
-
